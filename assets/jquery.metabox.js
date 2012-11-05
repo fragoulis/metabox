@@ -10,6 +10,11 @@
         this.$element = $(element)
         this.options = $.extend({}, $.fn.metabox.defaults, options)
         
+        if(this.options.loadingContainer)
+            this.options.loadingContainer = $(this.options.loadingContainer);
+        else
+            this.options.loadingContainer = this.$element;
+    
         if(this.options.refreshTimeout>0)
             this.createTimeout();
         
@@ -56,12 +61,12 @@
                 data : this.options.data,
                 beforeSend : function() {
                     $box.$element.addClass($box.options.loadingClass);
-                    $box.$element.hide().next().show();
+                    $box.options.loadingContainer.html($box.options.loadingText);
                     $box.options.beforeRefresh.apply($box);
                 },
                 success : function(data) {
                     $box.$element.removeClass($box.options.loadingClass);
-                    $box.$element.show().next().hide();
+                    $box.options.loadingContainer.html('');
                     $box.options.handleResponse.apply($box, [data])
                     $box.options.afterRefresh.apply($box, [data]);
                 },
@@ -128,6 +133,7 @@
     $.fn.metabox.defaults = {
         loadingText: 'loading...',
         loadingClass: 'metabox-loading',
+        loadingContainer: null,
         url: null,
         data : {},
         type : 'GET',
@@ -135,7 +141,9 @@
         refreshTimeout : 0,
         refreshInterval : 0,
         beforeRefresh: function() {},
-        handleResponse: function(data) {this.$element.html(data);},
+        handleResponse: function(data) {
+            this.$element.html(data);
+        },
         afterRefresh: function(data) {}
     }
 
