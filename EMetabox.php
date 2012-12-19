@@ -34,7 +34,7 @@ class EMetabox extends CWidget
     /**
      * @var string the initial contents of the div
      */
-    public $initHtml = ' ';
+    public $initHtml;
 
     /**
      * @var type 
@@ -67,6 +67,9 @@ class EMetabox extends CWidget
         $this->options['url'] = $this->url;
         $this->options['loadingText'] = $this->loadingIndicator;
         $this->options['refreshOnInit'] = $this->refreshOnInit;
+        
+        echo CHtml::openTag('div', $this->htmlOptions);
+        echo $this->initHtml;
     }
 
     /**
@@ -74,8 +77,9 @@ class EMetabox extends CWidget
      */
     public function run()
     {
+        echo '</div>';
+        
         $id = $this->id;
-        echo CHtml::tag('div', $this->htmlOptions, $this->initHtml);
 
         /* @var $cs CClientScript */
         $cs = Yii::app()->getClientScript();
