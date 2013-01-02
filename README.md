@@ -21,34 +21,31 @@ Tested on Yii 1.1.12
 ##Usage
 
 Simple initialisation:
-~~~
-[php]
+~~~php
 $this->widget('ext.metabox.EMetabox', array(
  'id' => 'mymetabox',
  'url' => array('/myurl'),
 ));
 ~~~
+
 This prints:
-~~~
-[html]
+~~~html
 <div id="mymetabox" class="metabox">
   <div class="metabox-content"></div>
 </div>
 ~~~
+
 and
-~~~
-[javascript]
+~~~javascript
 $('#mymetabox').metabox({url : 'myurl'});
 ~~~
 
 You can refresh it manually, using JavaScript, without parameters
-~~~
-[javascript]
+~~~javascript
 $('#mymetabox').metabox('refresh');
 ~~~
 or with extra parameters
-~~~
-[javascript]
+~~~javascript
 $('#mymetabox').metabox('refresh', {
   type: 'POST', 
   data : {
@@ -57,8 +54,7 @@ $('#mymetabox').metabox('refresh', {
 ~~~
 
 You can initialize it with an interval so that it auto-refreshes:
-~~~
-[php]
+~~~php
 $this->widget('ext.metabox.EMetabox', array(
  'id' => 'mymetabox',
  'url' => array('/myurl'),
@@ -68,10 +64,8 @@ $this->widget('ext.metabox.EMetabox', array(
 ));
 ~~~
 
-
 The metabox can have initial content. You can use the content attribute:
-~~~
-[php]
+~~~php
 $this->widget('ext.metabox.EMetabox', array(
   ...
   'content' => 'Initial content'
@@ -79,8 +73,7 @@ $this->widget('ext.metabox.EMetabox', array(
 ~~~
 
 or the begin/end:
-~~~
-[php]
+~~~php
 $this->beginWidget('ext.metabox.EMetabox', array(
   ...
 ));
@@ -89,8 +82,7 @@ $this->endWidget();
 ~~~
 
 You can optionally add a header and/or a footer to the metabox:
-~~~
-[php]
+~~~php
 $this->widget('ext.metabox.EMetabox', array(
   'header' => 'My title',
   'footer' => date('H:i:s'),
@@ -107,8 +99,7 @@ There are also three callbacks you can override which are called in the order sh
 Metabox::handleResponse by default updates the div's contents with the response data. Within the scope of these methods, **this** refers to the metabox object. You can access the outer div element by calling the **$element** attribute and the inner content div by calling the **$content** attribute as shown below in the example.  
 _Also, you can access the header and footer divs (if they exist) by callcing the **$header** and **$footer** attribute respectively._
 
-~~~
-[php]
+~~~php
 $this->widget('ext.metabox.EMetabox', array(
  ...
  'options' => array(
