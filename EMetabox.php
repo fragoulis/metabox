@@ -7,33 +7,38 @@
  * refresh with an internval or timeout.
  * 
  * @author Yannis Fragkoulis <yannis.fragkoulis@gmail.com>
- * @version 0.4
+ * @version 0.5
  */
 class EMetabox extends CWidget
 {
 
     /**
      * @var array the javascript options
+     * @since 0.1
      */
     public $options = array();
 
     /**
      * @var array the html options
+     * @since 0.1
      */
     public $htmlOptions = array();
 
     /**
      * @var string ajax loading indicator
+     * @since 0.1
      */
     public $loadingIndicator;
 
     /**
      * @var mixed the refresh url
+     * @since 0.1
      */
     public $url;
 
     /**
      * @var boolean if true the metabox will refresh on window load
+     * @since 0.1
      */
     public $refreshOnInit = false;
 
@@ -56,18 +61,25 @@ class EMetabox extends CWidget
     public $content;
 
     /**
+     * @var array the header buttons. Optional.
+     * @since 0.5
+     */
+    public $headerButtons;
+
+    /**
      * @var string the default css class
      * @since 0.4
      */
     public $cssClass = 'metabox';
 
     /**
-     * @var type 
+     * @var string 
+     * @since 0.1
      */
     static private $_assets;
 
     /**
-     * 
+     * @since 0.1
      */
     public function init()
     {
@@ -104,6 +116,7 @@ class EMetabox extends CWidget
 
     /**
      * Register extension assets
+     * @since 0.1
      */
     public function run()
     {
@@ -128,16 +141,25 @@ class EMetabox extends CWidget
         $cs->registerScript('metabox#' . $id, "$('#{$id}').metabox({$options});", CClientScript::POS_READY);
     }
 
+    /**
+     * Renders the header
+     * @since 0.4
+     */
     protected function renderHeader()
     {
-        if ($this->header)
+        if ($this->header || $this->headerButtons)
         {
             echo CHtml::openTag('div', array('class' => $this->cssClass . '-header'));
             echo $this->header;
+            $this->renderHeaderButtons();
             echo '</div>'; // close header div
         }
     }
 
+    /**
+     * Renders the footer
+     * @since 0.4
+     */
     protected function renderFooter()
     {
         if ($this->footer)
@@ -146,9 +168,26 @@ class EMetabox extends CWidget
         }
     }
 
+    /**
+     * Renders the content
+     * @since 0.4
+     */
     protected function renderContent()
     {
         echo $this->content;
+    }
+
+    /**
+     * Renders the header buttons
+     * @since 0.5
+     */
+    protected function renderHeaderButtons()
+    {
+        if ($this->headerButtons)
+        {
+            echo CHtml::openTag('div', array('class' => $this->cssClass . '-header-buttons'));
+            echo '</div>';
+        }
     }
 
 }
