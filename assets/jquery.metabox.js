@@ -13,6 +13,8 @@
         this.options = $.extend({}, $.fn.metabox.defaults, options);
         this.$element = $(element);
 		this.$content = $('.' + this.options.cssClass + '-content', element);
+        this.$header = $('.' + this.options.cssClass + '-header', element);
+        this.$footer = $('.' + this.options.cssClass + '-footer', element);
         
         this.options.errorText = this.options.errorText.replace('{url}', this.options.url);
         
